@@ -17,7 +17,7 @@ func main() {
 
 	rg := router.Group("api/v1/photo")
 	{
-		rg.PATCH("/", uploadFile)
+		rg.POST("/", uploadFile)
 	}
 
 	router.Use(cors.Default())
@@ -34,11 +34,8 @@ func uploadFile(c *gin.Context) {
 	client, e := storage.NewClient(c, option.WithAPIKey(uploadApiKey))
 	bucket := client.Bucket(uploadBucket)
 
-	log.Println("Client initialized...")
-
 	for {
 		p, e := mr.NextPart()
-		log.Println("Reading part...")
 
 		if e == io.EOF {
 			break
