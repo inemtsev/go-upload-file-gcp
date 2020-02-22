@@ -14,10 +14,7 @@ import 	(
 
 func main() {
 	router := gin.Default()
-	router.Use(cors.New(cors.Config{
-		AllowOrigins:           []string{"http://localhost:3000"},
-		AllowMethods:           []string{"PATCH"},
-	}))
+	router.Use(cors.Default())
 
 	rg := router.Group("api/v1/photo")
 	{
