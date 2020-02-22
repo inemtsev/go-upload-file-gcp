@@ -14,12 +14,13 @@ import 	(
 
 func main() {
 	router := gin.Default()
-	router.Use(cors.Default())
 
 	rg := router.Group("api/v1/photo")
 	{
 		rg.PATCH("/", uploadFile)
 	}
+
+	router.Use(cors.Default())
 
 	router.Run()
 }
