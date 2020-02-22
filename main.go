@@ -6,6 +6,7 @@ import 	(
 	"github.com/gin-contrib/cors"
 	"google.golang.org/api/option"
 	"io"
+	"log"
 )
 
  const uploadBucket = "eventslooped-media"
@@ -35,8 +36,11 @@ func uploadFile(c *gin.Context) {
 	client, e := storage.NewClient(c, option.WithAPIKey(uploadApiKey))
 	bucket := client.Bucket(uploadBucket)
 
+	log.Println("Client initialized...")
+
 	for {
 		p, e := mr.NextPart()
+		log.Println("Reading part...")
 
 		if e == io.EOF {
 			break
