@@ -15,7 +15,7 @@ func main() {
 
 	rg := router.Group("api/v1/photo")
 	{
-		rg.POST("/", uploadFile)
+		rg.PATCH("/", uploadFile)
 	}
 
 	router.Run()
