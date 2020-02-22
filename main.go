@@ -8,7 +8,7 @@ import 	(
 	"io"
 )
 
- const uploadBucket = "mediaBucket"
+ const uploadBucket = "eventslooped-media"
  const uploadApiKey = "AIzaSyB8fOy8GGW8n9Hdquu5bLfHbKAY2fWeRA8"
 
 func main() {
