@@ -6,7 +6,6 @@ import 	(
 	"github.com/gin-contrib/cors"
 	"google.golang.org/api/option"
 	"io"
-	"log"
 )
 
  const uploadBucket = "eventslooped-media"
