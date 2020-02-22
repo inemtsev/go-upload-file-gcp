@@ -3,6 +3,7 @@ package main
 import 	(
 	"cloud.google.com/go/storage"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 	"google.golang.org/api/option"
 	"io"
 )
@@ -12,6 +13,10 @@ import 	(
 
 func main() {
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:           []string{"http://localhost:3000"},
+		AllowMethods:           []string{"PATCH"},
+	}))
 
 	rg := router.Group("api/v1/photo")
 	{
