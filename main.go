@@ -3,13 +3,28 @@ package main
 import 	(
 	"cloud.google.com/go/storage"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-contrib/cors"
 	"google.golang.org/api/option"
 	"io"
 )
 
  const uploadBucket = "eventslooped-media"
  const uploadApiKey = "AIzaSyB8fOy8GGW8n9Hdquu5bLfHbKAY2fWeRA8"
+
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
+}
 
 func main() {
 	router := gin.Default()
@@ -19,7 +34,7 @@ func main() {
 		rg.POST("/", uploadFile)
 	}
 
-	router.Use(cors.Default())
+	router.Use(CORSMiddleware())
 
 	router.Run()
 }
