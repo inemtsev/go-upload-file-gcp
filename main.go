@@ -48,7 +48,9 @@ func uploadFile(c *gin.Context) {
 		if e = f.Close(); e != nil {
 			panic("Error closing the file, I/O problem?")
 		}
-		os.Remove(header.Filename)
+		if e = os.Remove(header.Filename); e != nil {
+			panic(fmt.Sprintf("Could not delete file %v", header.Filename))
+		}
 	}
 }
 
