@@ -45,8 +45,10 @@ func uploadFile(c *gin.Context) {
 
 	if isFileUploadCompleted(c) {
 		uploadToGoogle(c, f)
-		f.Close()
-		//os.Remove(header.Filename)
+		if e = f.Close(); e != nil {
+			panic("Error closing the file, I/O problem?")
+		}
+		os.Remove(header.Filename)
 	}
 }
 
