@@ -36,15 +36,17 @@ func uploadFile(c *gin.Context) {
 		if e != nil {
 			panic("Error creating file on the filesystem: " + e.Error())
 		}
-		defer f.Close()
 	}
 
 	if _, e := io.Copy(f, file); e != nil {
 		panic("Error during chunk write:" + e.Error())
+		f.Close()
 	}
 
 	if isFileUploadCompleted(c) {
 		uploadToGoogle(c, f)
+		f.Close()
+		//os.Remove(header.Filename)
 	}
 }
 
